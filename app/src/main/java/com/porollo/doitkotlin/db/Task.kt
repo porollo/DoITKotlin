@@ -7,17 +7,23 @@ import io.realm.annotations.RealmClass
 
 @RealmClass
 
-open class Task : RealmObject() {
+open class Task(
+        @PrimaryKey
+        var id: Long = 0,
+        var email: String = "",
+        var name: String = "",
+        var taskname: String = "",
+        var taskcontent: String = "",
+        var taskpriority: Int = 0,
+        var subtaskscount: Int = 0 ) : RealmObject() {
 
-    @PrimaryKey
-    open var id: Long = 0
-
-    open var email: String = ""
-    open var name: String = ""
-
-    open var taskname: String = ""
-    open var taskcontent: String = ""
-    open var taskpriority: Int = 0
-    open var subtaskscount: Int = 0
-
+    fun copy(
+            id: Long = this.id,
+            email: String = this.email,
+            name: String = this.name,
+            taskname: String = this.taskname,
+            taskcontent: String = this.taskcontent,
+            taskpriority: Int = this.taskpriority,
+            subtaskscount: Int = this.subtaskscount) = Task(id, email, name, taskname, taskcontent, taskpriority, subtaskscount)
 }
+

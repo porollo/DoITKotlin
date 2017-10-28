@@ -6,9 +6,40 @@
     android:layout_height="match_parent"
     tools:context="com.porollo.doitkotlin.MainActivity">
 
-<ListView
-    android:id="@+id/allTaskListView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    <ListView
+        android:id="@+id/allTaskListView"
+        android:layout_width="match_parent"
+        android:layout_height="313dp" />
+
+    <TextView
+        android:id="@+id/display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/addButton"
+        app:layout_constraintTop_toBottomOf="@+id/addButton" />
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Add Task"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/allTaskListView"
+        tools:text="Add" />
+
+    <Button
+        android:id="@+id/delButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Del Task"
+        app:layout_constraintStart_toEndOf="@+id/addButton"
+        app:layout_constraintTop_toBottomOf="@+id/allTaskListView"
+        tools:text="Del" />
 
 </android.support.constraint.ConstraintLayout>

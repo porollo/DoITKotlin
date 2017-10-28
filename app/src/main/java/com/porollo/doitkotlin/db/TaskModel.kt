@@ -52,14 +52,14 @@ class TaskModel : TaskInterface {
     }
 
     override fun getTask(realm: Realm, taskId: Int): Task {
-        return realm.where(Task::class.java).equalTo("id", taskId).findFirst()!! // TODO FixIt
+        return realm.where(Task::class.java).equalTo("id", taskId).findFirst()!!
     }
 
     fun getLastTask(realm: Realm): Task {
         return realm.where(Task::class.java).findAll().last()!!
     }
 
-    fun getStudents(realm: Realm): RealmResults<Task> {
+    fun getTasks(realm: Realm): RealmResults<Task> {
         return realm.where(Task::class.java).findAll()
     }
 

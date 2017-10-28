@@ -9,23 +9,76 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
 import android.widget.TextView
+import com.porollo.doitkotlin.db.Task
+import com.porollo.doitkotlin.db.TaskModel
+import io.realm.Realm
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val listView = findViewById<ListView>(R.id.allTaskListView)
-
         listView.adapter = ToDoMainListAdapter(this)
+
+        Realm.init(applicationContext)
+        var realm = Realm.getDefaultInstance()
+
+        var taskModel = TaskModel()
+
+        var task = Task(
+                id = 1,
+                email  = "d.porollo@gmail.com",
+                name = "Dmitriy Porollo",
+                taskname = "Add something",
+                taskcontent = "Add something else",
+                taskpriority = 5,
+                subtaskscount = 0
+        )
+
+
+        fun displayTasks(realm: Realm) {
+            var data = ""
+            var results = taskModel.getTasks(realm)
+            results.forEach { result ->
+                data += "$result \n -------- \n"
+            }
+            display.text = data
+        }
+
+
+
+        addButton.setOnClickListener {
+
+            if (taskModel.getTasks(realm).count() <= 0) {
+                taskModel.addTask(realm, task)
+            } else {
+                var v = taskModel.getLastTask(realm)
+                var newTask = v.copy(v.id + 1)
+                taskModel.addTask(realm, newTask)
+            }
+            displayTasks(realm)
+        }
+
     }
+
+
+
+
+
+
 
 
 
     private class ToDoMainListAdapter(context: Context) : BaseAdapter() {
 
         private val mContext: Context = context
+
+
         private val tasks = arrayListOf<String>("Make DoIT App", "Make Typhoon Weather",
                 "Make Courcework", "Make World", "Make Something Else")
 
@@ -48,7 +101,7 @@ class MainActivity : AppCompatActivity() {
 
 
             val taskTextView = rowMain.findViewById<TextView>(R.id.taskTextView)
-            taskTextView.text = tasks.get(position)
+            taskTextView.text = "Task"
 
             val positionTextView = rowMain.findViewById<TextView>(R.id.positionTextView)
             positionTextView.text = "Subtasks: $position"
